@@ -122,14 +122,18 @@ try {
                     <th>Action</th>
                 </thead>
                     ${this.agentList?.map((t: any) => html`
-                <tbody>
-                    <td>${t.agentName}</td>
-                    <td>${t.teamName}</td>
-                    <td>${new Date(t.startTime).toLocaleString()}</td>
-                    <td>${t.channelInfo[0].currentState}</td>
-                    <td>${new Date(Date.now() - t.channelInfo[0].lastActivityTime).toISOString().slice(11, -5)}</td>
-                    <td><button value=${t.agentId} @click="${this.logOutAgent}">Log Out</button></td>
-                </tbody>
+<tbody>
+    ${this.agentList?.map((t: any) => html`
+        <tr>
+            <td>${t.agentName}</td>
+            <td>${t.teamName}</td>
+            <td>${new Date(t.startTime).toLocaleString()}</td>
+            <td>${t.channelInfo?.[0]?.currentState}</td>
+            <td>${this.formatDuration(t.channelInfo?.[0]?.lastActivityTime)}</td>
+            <td><button value=${t.agentId} @click="${this.logOutAgent}">Log Out</button></td>
+        </tr>
+    `)}
+</tbody>
             `)}
             </table>
         `;
